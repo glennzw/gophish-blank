@@ -1,4 +1,4 @@
-name: Build Gophish Release
+name: Build Gophish Release (dummmy test)
 on:
   workflow_dispatch:
     # Inputs the workflow accepts.
@@ -44,9 +44,9 @@ jobs:
             - if: matrix.os == 'ubuntu-latest'
               run: sudo apt-get update && sudo apt-get install -y gcc-multilib
             - if: matrix.arch == '386'
-              run: echo "::set-env name=RELEASE::gophish-${{ github.event.release.tag_name }}-${{ matrix.releaseos}}-32bit"
+              run: echo "RELEASE=gophish-${{ github.event.release.tag_name }}-${{ matrix.releaseos }}-32bit" >> $GITHUB_ENV
             - if: matrix.arch == 'amd64'
-              run: echo "::set-env name=RELEASE::gophish-${{ github.event.release.tag_name}}-${{ matrix.releaseos}}-64bit"
+              run: echo "RELEASE=gophish-${{ github.event.release.tag_name }}-${{ matrix.releaseos }}-32bit" >> $GITHUB_ENV
             - uses: actions/checkout@v2
             - name: Build ${{ matrix.goos }}/${{ matrix.arch }}
               run: go build -o ${{ matrix.bin }}
