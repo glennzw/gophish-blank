@@ -38,7 +38,7 @@ jobs:
                 GOARCH: ${{ matrix.arch }}
                 CGO_ENABLED: 1
             #####    CGO_CFLAGS: "-g -O2 -Wno-return-local-addr"
-            - run: echo ${{ env.RELEASE }}
+            - run: echo "env release is ${{ env.RELEASE }}"
             - name: Upload to artifacts
               uses: actions/upload-artifact@v3
               with:
