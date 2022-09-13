@@ -38,10 +38,12 @@ jobs:
                 GOARCH: ${{ matrix.arch }}
                 CGO_ENABLED: 1
             #####    CGO_CFLAGS: "-g -O2 -Wno-return-local-addr"
+            - run: echo ${{ env.RELEASE }}
             - name: Upload to artifacts
               uses: actions/upload-artifact@v3
               with:
-                name: envRELEASE #### MEW ${{ env.RELEASE }}
+                #####name: envRELEASE #### MEW ${{ env.RELEASE }}
+                name: ${{ env.RELEASE }}
                 path: ${{ matrix.bin }}
                 
             
