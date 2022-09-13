@@ -28,7 +28,7 @@ jobs:
                 go-version: 1.18
             - run: echo "Hello world"
             #- run: export CGO_CFLAGS="-g -O2 -Wno-return-local-addr"
-            - run: echo "CGO_CFLAGS='-g -O2 -Wno-return-local-addr'" >> $GITHUB_ENV ########## MEW
+            ######- run: echo "CGO_CFLAGS='-g -O2 -Wno-return-local-addr'" >> $GITHUB_ENV ########## MEW
             - run: echo "RELEASE=gophish-tag_name_placeholder-${{ matrix.releaseos }}-64bit" >> $GITHUB_ENV
             - uses: actions/checkout@v2
             - name: Build ${{ matrix.goos }}/${{ matrix.arch }}
@@ -37,11 +37,11 @@ jobs:
                 GOOS: ${{ matrix.goos }}
                 GOARCH: ${{ matrix.arch }}
                 CGO_ENABLED: 1
-                CGO_CFLAGS: "-g -O2 -Wno-return-local-addr"
+            #####    CGO_CFLAGS: "-g -O2 -Wno-return-local-addr"
             - name: Upload to artifacts
               uses: actions/upload-artifact@v3
               with:
-                name: envRELEASE
+                name: envRELEASE #### MEW ${{ env.RELEASE }}
                 path: ${{ matrix.bin }}
                 
             
