@@ -52,6 +52,8 @@ jobs:
                 GOOS: ${{ matrix.goos }}
                 GOARCH: ${{ matrix.arch }}
                 CGO_ENABLED: 1
+            - run: echo "matrix bin is ${{ matrix.bin }}"
+            - run: echo "env release is ${{ env.RELEASE }}" 
             - name: Upload to artifacts
               uses: actions/upload-artifact@v2
               with:
