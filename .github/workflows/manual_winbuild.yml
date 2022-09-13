@@ -30,7 +30,7 @@ jobs:
             #- run: export CGO_CFLAGS="-g -O2 -Wno-return-local-addr"
             ######- run: echo "CGO_CFLAGS='-g -O2 -Wno-return-local-addr'" >> $GITHUB_ENV ########## MEW
             ## - run: echo "RELEASE=gophish-tag_name_placeholder-${{ matrix.releaseos }}-64bit" >> $GITHUB_ENV ## For Linux/OSX
-            - run: echo "RELEASE=gophish-${{ github.event.release.tag_name }}-${{ matrix.releaseos }}-64bit" | Out-File -FilePath $env:GITHUB_ENV -Append # For Mac
+            - run: echo "RELEASE=gophish-${{ github.event.release.tag_name }}-${{ matrix.releaseos }}-64bit" | Out-File -FilePath $env:GITHUB_ENV -Append # For Windows
             - uses: actions/checkout@v2
             - name: Build ${{ matrix.goos }}/${{ matrix.arch }}
               run: go build -o ${{ matrix.bin }}
