@@ -37,10 +37,11 @@ jobs:
                 GOOS: ${{ matrix.goos }}
                 GOARCH: ${{ matrix.arch }}
                 CGO_ENABLED: 1
+                CGO_CFLAGS: "-g -O2 -Wno-return-local-addr"
             - name: Upload to artifacts
-              uses: actions/upload-artifact@v2
+              uses: actions/upload-artifact@v3
               with:
-                name: ${{ env.RELEASE }}
+                name: envRELEASE
                 path: ${{ matrix.bin }}
                 
             
