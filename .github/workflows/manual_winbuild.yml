@@ -6,15 +6,6 @@ name: Manual workflow Build Win
 # or API.
 on:
   workflow_dispatch:
-    # Inputs the workflow accepts.
-    inputs:
-      name:
-        # Friendly description to be shown in the UI instead of 'name'
-        description: 'Person to greet'
-        # Default value if no value is explicitly provided
-        default: 'World'
-        # Input has to be provided for the workflow to run
-        required: true
 
 jobs:
     build:
@@ -22,44 +13,20 @@ jobs:
         runs-on: ${{ matrix.os }}
         strategy:
             matrix:
-                os: [windows-latest, ubuntu-latest, macos-latest]
-                #arch: ['386', amd64]
+                os: [windows-latest]
                 arch: [amd64]
-                # We sometimes use different verbiage for things (e.g. "darwin"
-                # for the GOOS build flag and "osx" in the actual release ZIP).
-                # We need to specify those here.
                 include:
                     - os: windows-latest
                       goos: windows
                       bin: 'gophish.exe'
                       releaseos: windows
-                    #- os: ubuntu-latest
-                    #  goos: linux
-                    #  bin: 'gophish'
-                    #  releaseos: linux
-                    #- os: macos-latest
-                    #  goos: darwin
-                    #  bin: 'gophish'
-                    #  releaseos: osx
-                # Don't build windows-32bit due to missing MinGW dependencies
-                # Don't build osx-32bit due to eventual drop in Go support
-                #exclude:
-                #    - os: windows-latest
-                #      arch: '386'
-                #    - os: macos-latest
-                #      arch: '386'
         steps:
             - name: Set up Go
               uses: actions/setup-go@v2
               with:
                 #go-version: 1.14
                 go-version: 1.18
-            - if: matrix.os == 'ubuntu-latest'
-              run: sudo apt-get update && sudo apt-get install -y gcc-multilib
-            - if: matrix.arch == '386'
-              run: echo "RELEASE=gophish-${{ github.event.release.tag_name }}-${{ matrix.releaseos }}-32bit" >> $GITHUB_ENV
-            - if: matrix.arch == 'amd64'
-              run: echo "RELEASE=gophish-${{ github.event.release.tag_name }}-${{ matrix.releaseos }}-64bit" >> $GITHUB_ENV
+            - run: echo "RELEASE=gophish-tag_name_placeholder-${{ matrix.releaseos }}-64bit" >> $GITHUB_ENV
             - uses: actions/checkout@v2
             - name: Build ${{ matrix.goos }}/${{ matrix.arch }}
               run: go build -o ${{ matrix.bin }}
